@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfolio generatoru</title>
+<meta name="theme-color" content="#2347D9">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{--bg:#F5F6F8;--ink:#17203A;--mute:#5B6479;--line:#D9DDE6;--blue:#2347D9;--card:#fff;--onblue:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11162A;--ink:#EEF0F7;--mute:#A0A8BF;--line:#2A3150;--blue:#8CA2FF;--card:#1A2140;--onblue:#11162A}}
+:root[data-theme="dark"]{--bg:#11162A;--ink:#EEF0F7;--mute:#A0A8BF;--line:#2A3150;--blue:#8CA2FF;--card:#1A2140;--onblue:#11162A}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:640px;margin:0 auto;padding:20px 18px 60px}
+h1{font-size:28px;letter-spacing:-.02em;margin:8px 0 4px}
+.sub{color:var(--mute);margin:0 0 20px}
+fieldset{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:14px 16px 16px;margin:0 0 14px}
+legend{font-weight:700;padding:0 6px}
+label{display:block;font-size:14px;color:var(--mute);margin:10px 0 4px}
+input,textarea{font:inherit;width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+textarea{resize:vertical}
+input[type=color]{padding:2px;height:44px;width:80px}
+.row{display:grid;gap:8px}
+button{font:inherit;font-weight:700;border:0;border-radius:999px;padding:13px 22px;cursor:pointer;background:var(--blue);color:var(--onblue)}
+button.alt{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 14px}
+iframe{width:100%;height:560px;border:1px solid var(--line);border-radius:14px;background:#fff}
+#msg{color:var(--blue);font-weight:600;min-height:24px}
+#code{height:140px;font:12px/1.4 ui-monospace,Menlo,monospace}
+details{margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Portfolio generatoru</h1>
+  <p class="sub">Məlumatları doldur, sayt dərhal yanında görünsün. Sonra kodu kopyala və yayımla.</p>
+
+  <fieldset><legend>Haqqında</legend>
+    <label for="name">Ad Soyad</label><input id="name" value="Aysel Məmmədova">
+    <label for="job">Peşə</label><input id="job" value="veb dizayner və developer">
+    <label for="intro">Qısa təqdimat</label><textarea id="intro" rows="3">Bakıda yaşayıram. Sadə, sürətli və insanların həqiqətən istifadə edəcəyi saytlar hazırlayıram.</textarea>
+    <label for="email">E-poçt</label><input id="email" type="email" value="aysel@example.com">
+    <label for="color">Əsas rəng</label><input id="color" type="color" value="#2347D9">
+  </fieldset>
+
+  <fieldset><legend>İşlər</legend>
+    <div class="row"><input id="p1t" aria-label="1-ci iş adı" placeholder="İş adı" value="Çörək Evi"><input id="p1d" aria-label="1-ci iş təsviri" placeholder="Qısa təsvir" value="Yerli çörəkxana üçün onlayn sifariş saytı."></div>
+    <div class="row" style="margin-top:10px"><input id="p2t" aria-label="2-ci iş adı" placeholder="İş adı" value="Səyahət gündəliyi"><input id="p2d" aria-label="2-ci iş təsviri" placeholder="Qısa təsvir" value="Marşrutları xəritədə saxlayan tətbiq."></div>
+    <div class="row" style="margin-top:10px"><input id="p3t" aria-label="3-cü iş adı" placeholder="İş adı" value="Kitab klubu"><input id="p3d" aria-label="3-cü iş təsviri" placeholder="Qısa təsvir" value="Oxucuların kitabları müzakirə etdiyi icma saytı."></div>
+  </fieldset>
+
+  <fieldset><legend>Yazılar</legend>
+    <div class="row"><input id="b1t" aria-label="1-ci yazı başlığı" placeholder="Başlıq" value="İlk saytımı necə qurdum"><textarea id="b1d" aria-label="1-ci yazı mətni" rows="2">Mükəmməl olmasını gözləmə, yayımla və sonra yaxşılaşdır.</textarea></div>
+    <div class="row" style="margin-top:10px"><input id="b2t" aria-label="2-ci yazı başlığı" placeholder="Başlıq" value="Rəng seçərkən 3 qayda"><textarea id="b2d" aria-label="2-ci yazı mətni" rows="2">Bir əsas rəng, bir vurğu rəngi və bir neytral fon kifayətdir.</textarea></div>
+  </fieldset>
+
+  <div class="bar">
+    <button id="copy">Kodu kopyala</button>
+    <button id="dl" class="alt">Paylaş</button>
+  </div>
+  <div id="msg" role="status"></div>
+  <iframe id="pv" title="Sayt önizləməsi"></iframe>
+  <details><summary>HTML kodu</summary><textarea id="code" readonly aria-label="HTML kodu"></textarea></details>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function build(){
+  const v=id=>esc($(id).value.trim()), c=esc($('color').value);
+  const works=[1,2,3].map(i=>v('p'+i+'t')?`<div class="i"><h3>${v('p'+i+'t')}</h3><p>${v('p'+i+'d')}</p></div>`:'').join('');
+  const posts=[1,2].map(i=>v('b'+i+'t')?`<div class="i"><details><summary><h3>${v('b'+i+'t')}</h3></summary><p>${v('b'+i+'d')}</p></details></div>`:'').join('');
+  return `<!DOCTYPE html>
+<html lang="az"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${v('name')}</title>
+<style>
+:root{--a:${c}}*{box-sizing:border-box}
+body{margin:0;background:#F7F7F4;color:#1A1D29;font:19px/1.6 Georgia,serif}
+.w{max-width:700px;margin:0 auto;padding:40px 22px 60px}
+h1{font:800 clamp(40px,11vw,72px)/1 system-ui,sans-serif;letter-spacing:-.03em;margin:0 0 6px}
+.job{font:600 18px system-ui,sans-serif;color:var(--a);margin:0 0 20px}
+h2{font:800 26px system-ui,sans-serif;margin:48px 0 14px}
+.i{background:#fff;border:1px solid #E0E0DA;border-radius:14px;padding:16px 20px;margin-bottom:12px}
+.i h3{font:700 20px system-ui,sans-serif;margin:0 0 4px}.i p{margin:0;color:#555}
+details summary{cursor:pointer;list-style:none}details p{margin-top:10px}
+a.b{display:inline-block;background:var(--a);color:#fff;text-decoration:none;font:700 16px system-ui,sans-serif;padding:13px 22px;border-radius:999px}
+</style></head><body><div class="w">
+<h1>${v('name')}</h1><p class="job">${v('job')}</p><p>${v('intro')}</p>
+<h2>İşlər</h2>${works}
+<h2>Yazılar</h2>${posts}
+<h2>Əlaqə</h2><a class="b" href="mailto:${v('email')}">${v('email')}</a>
+</div></body></html>`;
+}
+function upd(){const h=build();$('pv').srcdoc=h;$('code').value=h}
+document.querySelectorAll('input,textarea').forEach(e=>e.addEventListener('input',upd));
+upd();
+$('copy').onclick=async()=>{
+  try{await navigator.clipboard.writeText($('code').value);$('msg').textContent='Kod kopyalandı.'}
+  catch(e){$('code').parentElement.open=true;$('code').select();$('msg').textContent='Kod aşağıda açıldı, seçilib. Əl ilə kopyala.'}
+};
+$('dl').onclick=async()=>{
+  const code=$('code').value;
+  try{
+    const f=new File([code],'sayt.html',{type:'text/html'});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Portfolio saytı'});return}
+    if(navigator.share){await navigator.share({title:'Portfolio saytı',text:code});return}
+    throw 0
+  }catch(e){
+    if(e&&e.name==='AbortError')return;
+    try{await navigator.clipboard.writeText(code);$('msg').textContent='Paylaşma dəstəklənmir, kod kopyalandı.'}
+    catch(_){$('code').parentElement.open=true;$('code').select();$('msg').textContent='Kod aşağıda seçildi. Əl ilə kopyala.'}
+  }
+};
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
